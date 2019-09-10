@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+      <link href="css/jsoneditor.min.css" rel="stylesheet" type="text/css">
+      <link href="css/default.css" rel="stylesheet" type="text/css">
+      <style>
+        body {font-family: Arial;}
+        
+        /* Style the tab */
+        .tab {
+          overflow: hidden;
+          border: 1px solid #ccc;
+          background-color: #f1f1f1;
+        }
+        
+        /* Style the buttons inside the tab */
+        .tab button {
+          background-color: inherit;
+          float: left;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 14px 16px;
+          transition: 0.3s;
+          font-size: 17px;
+        }
+        
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+          background-color: #ddd;
+        }
+        
+        /* Create an active/current tablink class */
+        .tab button.active {
+          background-color: #ccc;
+        }
+        
+ 
+      </style>
+  </head>
+  <body>
+    <div class="tab">
+      <button  class="tablinks" >
+        <span>
+          Layer One IP Address:
+        </span>
+        <span id='layer1ip'>
+          
+        </span>
+        
+      </button>
+
+    </div>
+        
+    <div>
+      <h3>Change User</h3>
+      <p>
+        <select id='selectUser'>
+          <option value="user #0">user #0</option>
+          <option value="user #1">user #1</option>
+          <option value="user #2">user #2</option>
+          <option value="user #3">user #3</option>
+          <option value="user #4">user #4</option>
+          <option value="user #5">user #5</option>
+          <option value="user #6">user #6</option>
+          <option value="user #7">user #7</option>
+          <option value="user #8">user #8</option>
+          <option value="user #9">user #9</option>
+          <option value="user #10">user #10</option>
+          <option value="user #11">user #11</option>
+          <option value="user #12">user #12</option>
+          <option value="user #13">user #13</option>
+          <option value="user #14">user #14</option>
+          <option value="user #15">user #15</option>
+          <option value="user #16">user #16</option>
+          <option value="user #17">user #17</option>
+          <option value="user #18">user #18</option>
+          <option value="user #19">user #19</option>
+          
+        </select>
+      </p>
+      <h3>Quick Actions</h3>
+      <p>
+        <button id='btn1'>Task: transfer 15 Gas to user #0</button>
+        <button id='btn2'>Task: new node join waiting for RA</button>
+        <button id='btn3'>Set Proof of Trust (to be hacked?)</button>
+        <button id='btn4'>Post a Lambda (eg. docker with AI training algorithm)</button>
+        <button id='btn5'>Train AI model with my own secure data</button>
+      </p>
+      <h2>Please modify the JSON below</h2>
+      <p>
+        <div id="jsoneditor" style="width: 400px; height: 300px;"></div>
+      </p>
+      
+      <p>
+        <button id='sendAction'>Send Action to PubSub Room</button> Under the Name of <span id='userName'>User Name</span>
+        
+      </p>
+      <p>
+        Initiator Response: <span id='initiatorResponse'></span><br/>
+        Initiator Error: <span id = 'initiatorError'></span>
+      </p>
+      <h3>Debug commands</h3>
+      <p>
+        <button id='sendToTaskRoomDebug'>Send to task room debug command</button>
+
+      </p>
+      <p>
+        <button id='showPeerMgr'>Show Compute Task Peers Manager Data</button>
+      </p>
+    </div>
+    
+  </body>
+  <script src="js/simulator.js"></script>
+  <script src="dist/jsoneditor.min.js"></script>
+
+  
+</html>
+
+
