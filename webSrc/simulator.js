@@ -1,8 +1,7 @@
-
+import {getUrlVars} from './utils';
 const main = ()=>{
-  let userName = 'user #0';
-  //document.getElementById('roomPostfix').innerText = randRoomPostfix;
-  document.getElementById('userName').innerText = userName;
+  window.layerOneIpAddress = getUrlVars().layer1 ? getUrlVars().layer1 : 'localhost:3000';
+  document.getElementById('layer1ip').innerText = window.layerOneIpAddress;
   
   
   var container = document.getElementById("jsoneditor");
@@ -83,13 +82,13 @@ const main = ()=>{
       initiatorUserName: userName,
       action:jsonObj
     }
-    const url = 'http://' + window.location.host + '/poc/action';
+    const url = 'http://' + window.layerOneIpAddress + '/poc/action';
     console.log('url:', url);
     const response = await fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'same-origin', // no-cors, cors, *same-origin
+      mode: 'cors', // no-cors, cors, *same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
+      credentials: 'omit', // include, *same-origin, omit
       headers: {
           'Content-Type': 'application/json',
           // 'Content-Type': 'application/x-www-form-urlencoded',

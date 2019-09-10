@@ -5,7 +5,8 @@
   "author": "Kevin G Zhang",
   "license": "Apache 2.0",
   "scripts": {
-    "compile": "browserify ./webSrc/ipfsPubSub.js -t babelify --plugins [transform-runtime] -o ./web/js/ipfsPubSub.js -d && browserify ./webSrc/simulator.js -t babelify --plugins [transform-runtime] -o ./web/js/simulator.js -d"
+    "compile": "browserify ./webSrc/simulator.js -t babelify --plugins [transform-runtime] -o ./web/js/simulator.js -d",
+    "compile:ipfs": "browserify ./webSrc/ipfsPubSub.js -t babelify --plugins [transform-runtime] -o ./web/js/ipfsPubSub.js -d"
   },
   "repository": {
     "type": "git",
