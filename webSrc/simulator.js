@@ -4,6 +4,7 @@ const main = ()=>{
   document.getElementById('layer1ip').innerText = window.layerOneIpAddress;
   
   
+  
   var container = document.getElementById("jsoneditor");
   var editor = new JSONEditor(container, {});
 
@@ -68,11 +69,11 @@ const main = ()=>{
 
   };
   document.getElementById('selectUser').onchange = ()=>{
-    userName = document.getElementById('selectUser').value;
+    const userName = document.getElementById('selectUser').value;
     document.getElementById('userName').innerHTML = userName; 
   }
   document.getElementById('sendAction').onclick = async ()=>{
-    //const userName = document.getElementById('userName').innerHTML;
+    const userName = document.getElementById('userName').innerHTML.trim();
     document.getElementById('initiatorResponse').innerHTML = "";
     document.getElementById('initiatorError').innerHTML = "";
 
