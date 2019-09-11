@@ -5,8 +5,8 @@
   "author": "Kevin G Zhang",
   "license": "Apache 2.0",
   "scripts": {
-    "compile": "browserify ./webSrc/simulator.js -t babelify --plugins [transform-runtime] -o ./web/js/simulator.js -d",
-    "compile:ipfs": "browserify ./webSrc/ipfsPubSub.js -t babelify --plugins [transform-runtime] -o ./web/js/ipfsPubSub.js -d"
+    "compile": "browserify ./webSrc/simulator.js -t babelify --plugins [transform-runtime] -o ./web/compiled/simulator.js -d",
+    "compile:ipfs": "browserify ./webSrc/ipfsPubSub.js -t babelify --plugins [transform-runtime] -o ./web/compiled/ipfsPubSub.js -d"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "ipfs": "^0.37.1",
     "ipfs-pubsub-room": "github:kevingzhang/ipfs-pubsub-room",
     "js-sha256": "^0.9.0",
+    "leo.simulator.shared": "git+https://github.com/elastos/Leo.Simulator.Shared.git",
     "method-override": "^3.0.0",
     "peer-id": "^0.13.2",
     "underscore": "^1.9.1",

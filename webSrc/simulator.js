@@ -9,6 +9,8 @@ const main = ()=>{
   var editor = new JSONEditor(container, {});
 
   document.getElementById('btn1').onclick = ()=>{
+    const userName = document.getElementById('userName').innerHTML.trim();
+   
     editor.set({
       txType:"gasTransfer",
       fromUserName: userName,
@@ -33,6 +35,8 @@ const main = ()=>{
     })
   };
   document.getElementById('btn4').onclick = ()=>{
+    const userName = document.getElementById('userName').innerHTML.trim();
+   
     editor.set({
       txType:"uploadLambda",
       lambdaName:"hello_world",
@@ -43,6 +47,8 @@ const main = ()=>{
     });
   };
   document.getElementById('btn5').onclick = ()=>{
+    const userName = document.getElementById('userName').innerHTML.trim();
+   
     editor.set({
       txType:"computeTask",
       userName,
@@ -69,7 +75,7 @@ const main = ()=>{
 
   };
   document.getElementById('selectUser').onchange = ()=>{
-    const userName = document.getElementById('selectUser').value;
+    const userName = (document.getElementById('selectUser').value).trim();
     document.getElementById('userName').innerHTML = userName; 
   }
   document.getElementById('sendAction').onclick = async ()=>{
@@ -113,13 +119,13 @@ const main = ()=>{
 
   document.getElementById('sendToTaskRoomDebug').onclick = async ()=>{
     const jsonObj = editor.get();
-    const url = 'http://' + window.location.host + '/poc/debug';
+    const url = 'http://' + window.layerOneIpAddress + '/poc/debug';
     console.log('url:', url);
     const response = await fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'same-origin', // no-cors, cors, *same-origin
+      mode: 'cors', // no-cors, cors, *same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
+      credentials: 'omit', // include, *same-origin, omit
       headers: {
           'Content-Type': 'application/json',
           // 'Content-Type': 'application/x-www-form-urlencoded',
