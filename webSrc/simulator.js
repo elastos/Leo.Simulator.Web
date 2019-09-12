@@ -19,6 +19,7 @@ const main = ()=>{
     })
   }
   document.getElementById('btn2').onclick = ()=>{
+    const userName = document.getElementById('userName').innerHTML.trim();
     editor.set({
       txType:"newNodeJoinNeedRa",
       userName,
