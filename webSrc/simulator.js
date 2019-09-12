@@ -8,9 +8,7 @@ const main = ()=>{
 
   window.layerOneIpAddress = getUrlVars().layer1 ? getUrlVars().layer1 : 'localhost:3000';
   document.getElementById('layer1ip').innerText = window.layerOneIpAddress;
-  
-  
-  
+  document.getElementById('layer1PeerId').innerText = window.simState.getLayerOnePeerId();
   var container = document.getElementById("jsoneditor");
   var editor = new JSONEditor(container, {});
 

@@ -32,4 +32,8 @@ class SimState extends EventEmitter{
     this._layerOnePeerId = layerOnePeerId;
     this.emit('layerOnePeerIdChanged', this._layerOnePeerId);
   }
+
+  getLayerOnePeerId(){
+    return this._layerOnePeerId;
+  }
 }
