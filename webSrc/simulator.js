@@ -1,5 +1,11 @@
 import {getUrlVars} from './utils';
+import ipfsPubsub from './ipfsPubSub';
+import simState from './simState';
+import { utilities} from 'leo.simulator.shared';
+const {o} = utilities;
 const main = ()=>{
+  window.simState = simState();
+
   window.layerOneIpAddress = getUrlVars().layer1 ? getUrlVars().layer1 : 'localhost:3000';
   document.getElementById('layer1ip').innerText = window.layerOneIpAddress;
   
@@ -152,6 +158,15 @@ const main = ()=>{
       
     })
   };
+
+  window.simState.on('layerOnePeerIdChanged', (args)=>{
+    o('log', 'layerOnePeerIdChanged', args);
+  })
+
+  window.simState.on('blockChange', (args)=>{
+    o('log', 'blockChange', args);
+  })
+  ipfsPubsub(window.simState);
 };
 document.addEventListener('DOMContentLoaded', main);
 
