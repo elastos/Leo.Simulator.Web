@@ -6,7 +6,7 @@
   "license": "Apache 2.0",
   "scripts": {
     "compile": "browserify ./webSrc/simulator.js -t babelify --plugins [transform-runtime] -o ./web/compiled/simulator.js -d"
-   },
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/elastos/Leo.Simulator.Web"
