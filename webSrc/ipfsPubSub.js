@@ -1,12 +1,13 @@
 import IPFS from 'ipfs';
 import {getUrlVars} from './utils.js';
-
+import events from 'events';
 import Room from 'ipfs-pubsub-room';
 import { utilities} from 'leo.simulator.shared';
 const {o} = utilities;
 import newBlockHandler from './newBlockHandler';
 
-
+import messageHandler from './messageHandler';
+import townHallHandler from './townHallHandler';
 export default (simState)=>{
   const swarmUrl = (()=>{
     console.log('getUrlVars()', getUrlVars());
@@ -61,22 +62,26 @@ export default (simState)=>{
     const {blockRoom, townHall} = rooms;
 
     // global.blockMgr = blockMgr;
-    // global.rpcEvent = new events.EventEmitter();
-    // global.broadcastEvent = new events.EventEmitter();
-    // townHall.on('peer joined', townHallHandler.peerJoined);
-    // townHall.on('peer left', townHallHandler.peerLeft);
-    // townHall.on('subscribed', townHallHandler.subscribed);
-    // townHall.on('rpcDirect', townHallHandler.rpcDirect);
-    // townHall.on('message', townHallHandler.messageHandler);
-    // townHall.on('error', (err)=>o('error', `*******   townHall has pubsubroom error,`, err));
-    // townHall.on('stopping', ()=>o('error', `*******   townHall is stopping`));
-    // townHall.on('stopped', ()=>o('error', `*******   townHall is stopped`));
+    global.rpcEvent = new events.EventEmitter();
+    global.broadcastEvent = new events.EventEmitter();
+    townHall.on('peer joined', townHallHandler.peerJoined);
+    townHall.on('peer left', townHallHandler.peerLeft);
+    townHall.on('subscribed', townHallHandler.subscribed);
+    townHall.on('rpcDirect', townHallHandler.rpcDirect);
+    //townHall.on('message', messageHandler);
+    townHall.on('error', (err)=>o('error', `*******   townHall has pubsubroom error,`, err));
+    townHall.on('stopping', ()=>o('error', `*******   townHall is stopping`));
+    townHall.on('stopped', ()=>o('error', `*******   townHall is stopped`));
     blockRoom.on('subscribed', m=>o('log', 'subscribed', m));
     blockRoom.on('message', newBlockHandler(simState));//blockRoomHandler.messageHandler(ipfs))
     blockRoom.on('error', (err)=>o('error', `*******   blockRoom has pubsubroom error,`, err));
     blockRoom.on('stopping', ()=>o('error', `*******   blockRoom is stopping`));
     blockRoom.on('stopped', ()=>o('error', `*******   blockRoom is stopped`));
   
+    global.rpcEvent.on("rpcRequest", townHallHandler.rpcRequest(townHall));
+    global.rpcEvent.on("rpcResponseWithNewRequest", townHallHandler.rpcResponseWithNewRequest(townHall));
+    global.rpcEvent.on("rpcResponse", townHallHandler.rpcResponse(townHall));
+    
     //broadcastEvent.on('blockRoom', (m)=>blockRoom.broadcast(m));  
   });
   

@@ -108,6 +108,8 @@ const main = ()=>{
       referrer: 'no-referrer', // no-referrer, *client
       body: JSON.stringify(warpper), // body data type must match "Content-Type" header
     });
+
+    
     
     if(response.ok) {
       const result = await response.blob()
