@@ -5,7 +5,6 @@ import {constValue} from 'leo.simulator.shared';
 
 
 exports.reqUserInfo = ({from, guid})=>{
-  
   simState.updateLayerOnePeerId(from);
 
   const resMessage = {

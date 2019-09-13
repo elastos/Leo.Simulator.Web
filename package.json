@@ -32,6 +32,7 @@
     "leo.simulator.shared": "git+https://github.com/elastos/Leo.Simulator.Shared.git",
     "method-override": "^3.0.0",
     "peer-id": "^0.13.2",
+    "toastr": "^2.1.4",
     "underscore": "^1.9.1",
     "vrf.js": "0.0.4",
     "yargs": "^12.0.1"

@@ -1,8 +1,8 @@
 import {getUrlVars} from './utils';
 import ipfsPubsub from './ipfsPubSub';
 import simState from './simState';
-import { utilities} from 'leo.simulator.shared';
-const {o} = utilities;
+import {o} from './utils';
+import toastr from 'toastr';
 const main = ()=>{
   window.simState = simState();
 
@@ -159,12 +159,13 @@ const main = ()=>{
   };
 
   window.simState.on('layerOnePeerIdChanged', (args)=>{
-    o('alert', 'layerOnePeerIdChanged', args);
+    o('success', 'layerOnePeerIdChanged', args);
     document.getElementById('layer1PeerId').innerHTML = args;
   })
 
-  window.simState.on('blockChange', (args)=>{
-    o('log', 'blockChange', args);
+  window.simState.on('blockChange', ({block})=>{
+    o('success', 'new block height: ', block.blockHeight);
+    document.getElementById('blockheight').innerHTML = block.blockHeight;
   })
   ipfsPubsub(window.simState);
 };
