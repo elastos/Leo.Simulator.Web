@@ -25,7 +25,7 @@
               
               <ul class="list-group">
                 <li class="list-group-item"><span>Layer One IP Address:</span><span id='layer1ip'></span></li>
-                <li class="list-group-item">Layer One Peer Id: </li>
+                <li class="list-group-item">Layer One Peer Id: <span id='layer1PeerId'></span></li>
                 <li class="list-group-item">Total Credit: </li>
                 <li class="list-group-item">Total Gas: </li>
                 <li class="list-group-item">Total Credit for Online Nodes: </li>
@@ -47,127 +47,133 @@
         </div>
         <div class="card-body collapse show" id="overviewPanel">
           <h5 class="card-title">Nodes overview</h5>
-          <p class="card-text">You can see the overview of all 20 nodes here</p>
-          <a href="#" class="btn btn-primary">Action</a>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">User #</th>
+                <th scope="col">Gas</th>
+                <th scope="col">Credit</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">0</th>
+                <td>100</td>
+                <td>100</td>
+                <td>Online</td>
+                <td><a href="#" data-toggle="modal" data-user-id="user #0" data-target="#exampleModalCenter">Action</a></td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>100</td>
+                <td>100</td>
+                <td>Online</td>
+                <td><a href="#" data-toggle="modal" data-user-id="user #1" data-target="#exampleModalCenter">Action</a></td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>100</td>
+                <td>100</td>
+                <td>Online</td>
+                <td><a href="#" data-toggle="modal" data-user-id="user #2" data-target="#exampleModalCenter">Action</a></td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>100</td>
+                <td>100</td>
+                <td>Online</td>
+                <td><a href="#" data-toggle="modal" data-user-id="user #3" data-target="#exampleModalCenter">Action</a></td>
+              </tr>
+            </tbody>
+          </table>
+          
         </div>
       </div>
       <div class="card">
         <div class="card-header" data-toggle="collapse" data-target="#layerOneStatus" aria-expanded="true" aria-controls="collapseExample">
-          Nodes Overview
+          Layer One Blockchain Logs
         </div>
         <div class="card-body collapse show" id="layerOneStatus">
-          <h5 class="card-title">layerOneStatus</h5>
-          <p class="card-text">You can see thelayerOneStatuss here</p>
-          <a href="#" class="btn btn-primary">Action</a>
+          
+          <p class="card-text">You can see the layer One Statuss here</p>
+          
         </div>
       </div>
-      <div class="card">
-        <div class="card-header" data-toggle="collapse" data-target="#panel3" aria-expanded="true" aria-controls="collapseExample">
-          Nodes Overview
-        </div>
-        <div class="card-body collapse show" id="panel3">
-          <h5 class="card-title">Nodes overview</h5>
-          <p class="card-text">You can see the overview of all 20 nodes here</p>
-          <a href="#" class="btn btn-primary">Action</a>
-        </div>
-      </div>
+      
       <div class="card">
         <div class="card-header" data-toggle="collapse" data-target="#panel4" aria-expanded="true" aria-controls="collapseExample">
-          Nodes Overview
+          Debug commands
         </div>
         <div class="card-body collapse show" id="panel4">
-          <h5 class="card-title">Nodes overview</h5>
-          <p class="card-text">You can see the overview of all 20 nodes here</p>
-          <a href="#" class="btn btn-primary">Action</a>
+          <p class="card-text">You can send debug command to all nodes</p>
+            
+            <p>
+              <button id='sendToTaskRoomDebug'>Send to task room debug command</button>
+
+            </p>
+            <p>
+              <button id='showPeerMgr'>Show Compute Task Peers Manager Data</button>
+            </p>
         </div>
       </div>
-                      
-      
-    <div class="tab">
-      <button  class="tablinks" >
+  
         
-        
-      </button>
-      <button  class="tablinks" >
-        <span>
-          Layer One Peer Id:
-        </span>
-        <span id='layer1PeerId'>
-          
-        </span>
-        
-      </button>
-      
-      <button>
-        <a href='/poc/forceManualGenerateNewBlock' target='_blank'>
-          <span>Block#</span>
-        </a>
-      </button>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Create Transaction for  <input id='userName' name='userId'></input></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+                
+              
+              <ul class="list-group">
+                <li id='btn1' class="list-group-item list-group-item-action ">transfer 15 Gas to user #0</li>
+                <li id='btn2' class="list-group-item list-group-item-action ">new node join waiting for RA</li>
+                <li id='btn3' class="list-group-item list-group-item-action ">Set Proof of Trust (to be hacked?)</li>
+                <li id='btn4' class="list-group-item list-group-item-action ">Post a Lambda</li>
+                <li id='btn5' class="list-group-item list-group-item-action ">Compute Task</li>
+              </ul>
+              <div id="jsoneditor" style="width: 400px; height: 300px;"></div>
+            
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id='sendAction' type="button" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    </div>
-        
     <div>
-      <h3>Switch User</h3>
-      <p>
-        <select id='selectUser'>
-          <option value="user #0">user #0</option>
-          <option value="user #1">user #1</option>
-          <option value="user #2">user #2</option>
-          <option value="user #3">user #3</option>
-          <option value="user #4">user #4</option>
-          <option value="user #5">user #5</option>
-          <option value="user #6">user #6</option>
-          <option value="user #7">user #7</option>
-          <option value="user #8">user #8</option>
-          <option value="user #9">user #9</option>
-          <option value="user #10">user #10</option>
-          <option value="user #11">user #11</option>
-          <option value="user #12">user #12</option>
-          <option value="user #13">user #13</option>
-          <option value="user #14">user #14</option>
-          <option value="user #15">user #15</option>
-          <option value="user #16">user #16</option>
-          <option value="user #17">user #17</option>
-          <option value="user #18">user #18</option>
-          <option value="user #19">user #19</option>
-          
-        </select>
-      </p>
-      <h3>Quick Actions</h3>
-      <p>
-        <button id='btn1'>Task: transfer 15 Gas to user #0</button>
-        <button id='btn2'>Task: new node join waiting for RA</button>
-        <button id='btn3'>Set Proof of Trust (to be hacked?)</button>
-        <button id='btn4'>Post a Lambda (eg. docker with AI training algorithm)</button>
-        <button id='btn5'>Train AI model with my own secure data</button>
-      </p>
-      <h2>Please modify the JSON below</h2>
-      <p>
-        <div id="jsoneditor" style="width: 400px; height: 300px;"></div>
-      </p>
       
-      <p>
-        <button id='sendAction'>Send Action to PubSub Room</button> Under the Name of <span id='userName'>User Name</span>
-        
-      </p>
       <p>
         Initiator Response: <span id='initiatorResponse'></span><br/>
         Initiator Error: <span id = 'initiatorError'></span>
       </p>
-      <h3>Debug commands</h3>
-      <p>
-        <button id='sendToTaskRoomDebug'>Send to task room debug command</button>
-
-      </p>
-      <p>
-        <button id='showPeerMgr'>Show Compute Task Peers Manager Data</button>
-      </p>
+      
     </div>
   </div>
   </body>
   <script src="compiled/simulator.js"></script>
   <script src="dist/jsoneditor.min.js"></script>
+  <script>
+  $('#exampleModalCenter').on('show.bs.modal', function(e) {
 
+  //get data-id attribute of the clicked element
+  var userId = $(e.relatedTarget).data('user-id');
+
+  //populate the textbox
+  $(e.currentTarget).find('input[name="userId"]').val(userId);
+  });
+  </script>
   
 </html>
 

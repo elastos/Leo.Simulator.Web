@@ -15,7 +15,7 @@ const main = ()=>{
   var blockJsonEditor = new JSONEditor(blockJsonEditContainer, {});
 
   document.getElementById('btn1').onclick = ()=>{
-    const userName = document.getElementById('userName').innerHTML.trim();
+    const userName = document.getElementById('userName').value.trim();
    
     editor.set({
       txType:"gasTransfer",
@@ -25,7 +25,7 @@ const main = ()=>{
     })
   }
   document.getElementById('btn2').onclick = ()=>{
-    const userName = document.getElementById('userName').innerHTML.trim();
+    const userName = document.getElementById('userName').value.trim();
     editor.set({
       txType:"newNodeJoinNeedRa",
       userName,
@@ -42,7 +42,7 @@ const main = ()=>{
     })
   };
   document.getElementById('btn4').onclick = ()=>{
-    const userName = document.getElementById('userName').innerHTML.trim();
+    const userName = document.getElementById('userName').value.trim();
    
     editor.set({
       txType:"uploadLambda",
@@ -54,7 +54,7 @@ const main = ()=>{
     });
   };
   document.getElementById('btn5').onclick = ()=>{
-    const userName = document.getElementById('userName').innerHTML.trim();
+    const userName = document.getElementById('userName').value.trim();
    
     editor.set({
       txType:"computeTask",
@@ -81,12 +81,9 @@ const main = ()=>{
     });
 
   };
-  document.getElementById('selectUser').onchange = ()=>{
-    const userName = (document.getElementById('selectUser').value).trim();
-    document.getElementById('userName').innerHTML = userName; 
-  }
+  
   document.getElementById('sendAction').onclick = async ()=>{
-    const userName = document.getElementById('userName').innerHTML.trim();
+    const userName = document.getElementById('userName').value.trim();
     document.getElementById('initiatorResponse').innerHTML = "";
     document.getElementById('initiatorError').innerHTML = "";
 
