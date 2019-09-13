@@ -109,7 +109,7 @@ const main = ()=>{
       body: JSON.stringify(warpper), // body data type must match "Content-Type" header
     });
 
-    
+
     
     if(response.ok) {
       const result = await response.blob()
@@ -159,7 +159,8 @@ const main = ()=>{
   };
 
   window.simState.on('layerOnePeerIdChanged', (args)=>{
-    o('log', 'layerOnePeerIdChanged', args);
+    o('alert', 'layerOnePeerIdChanged', args);
+    document.getElementById('layer1PeerId').innerHTML = args;
   })
 
   window.simState.on('blockChange', (args)=>{
