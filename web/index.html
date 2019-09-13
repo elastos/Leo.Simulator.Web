@@ -4,50 +4,88 @@
 
       <link href="css/jsoneditor.min.css" rel="stylesheet" type="text/css">
       <link href="css/default.css" rel="stylesheet" type="text/css">
-      <style>
-        body {font-family: Arial;}
-        
-        /* Style the tab */
-        .tab {
-          overflow: hidden;
-          border: 1px solid #ccc;
-          background-color: #f1f1f1;
-        }
-        
-        /* Style the buttons inside the tab */
-        .tab button {
-          background-color: inherit;
-          float: left;
-          border: none;
-          outline: none;
-          cursor: pointer;
-          padding: 14px 16px;
-          transition: 0.3s;
-          font-size: 17px;
-        }
-        
-        /* Change background color of buttons on hover */
-        .tab button:hover {
-          background-color: #ddd;
-        }
-        
-        /* Create an active/current tablink class */
-        .tab button.active {
-          background-color: #ccc;
-        }
-        
- 
-      </style>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </head>
   <body>
+      
+    <div class="container">
+      <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+          <div class="row">
+              
+            <div class="col-sm-6">
+              
+              <div id="jsoneditorForBlock" style="height: 400px; background-color:whitesmoke"  ></div>
+            
+            </div>
+            <div class="col-sm-6">
+              
+              <ul class="list-group">
+                <li class="list-group-item"><span>Layer One IP Address:</span><span id='layer1ip'></span></li>
+                <li class="list-group-item">Layer One Peer Id: </li>
+                <li class="list-group-item">Total Credit: </li>
+                <li class="list-group-item">Total Gas: </li>
+                <li class="list-group-item">Total Credit for Online Nodes: </li>
+              </ul>
+            
+            </div>
+            
+          </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span> Block # <span id='blockheight'></span>
+          </button>
+        </nav>
+      </div>
+      <div class="card">
+        <div class="card-header" data-toggle="collapse" data-target="#overviewPanel" aria-expanded="true" aria-controls="collapseExample">
+          Nodes Overview
+        </div>
+        <div class="card-body collapse show" id="overviewPanel">
+          <h5 class="card-title">Nodes overview</h5>
+          <p class="card-text">You can see the overview of all 20 nodes here</p>
+          <a href="#" class="btn btn-primary">Action</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" data-toggle="collapse" data-target="#layerOneStatus" aria-expanded="true" aria-controls="collapseExample">
+          Nodes Overview
+        </div>
+        <div class="card-body collapse show" id="layerOneStatus">
+          <h5 class="card-title">layerOneStatus</h5>
+          <p class="card-text">You can see thelayerOneStatuss here</p>
+          <a href="#" class="btn btn-primary">Action</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" data-toggle="collapse" data-target="#panel3" aria-expanded="true" aria-controls="collapseExample">
+          Nodes Overview
+        </div>
+        <div class="card-body collapse show" id="panel3">
+          <h5 class="card-title">Nodes overview</h5>
+          <p class="card-text">You can see the overview of all 20 nodes here</p>
+          <a href="#" class="btn btn-primary">Action</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" data-toggle="collapse" data-target="#panel4" aria-expanded="true" aria-controls="collapseExample">
+          Nodes Overview
+        </div>
+        <div class="card-body collapse show" id="panel4">
+          <h5 class="card-title">Nodes overview</h5>
+          <p class="card-text">You can see the overview of all 20 nodes here</p>
+          <a href="#" class="btn btn-primary">Action</a>
+        </div>
+      </div>
+                      
+      
     <div class="tab">
       <button  class="tablinks" >
-        <span>
-          Layer One IP Address:
-        </span>
-        <span id='layer1ip'>
-          
-        </span>
+        
         
       </button>
       <button  class="tablinks" >
@@ -62,7 +100,7 @@
       
       <button>
         <a href='/poc/forceManualGenerateNewBlock' target='_blank'>
-          <span>Block#</span><span id='blockheight'></span>
+          <span>Block#</span>
         </a>
       </button>
 
@@ -125,7 +163,7 @@
         <button id='showPeerMgr'>Show Compute Task Peers Manager Data</button>
       </p>
     </div>
-    
+  </div>
   </body>
   <script src="compiled/simulator.js"></script>
   <script src="dist/jsoneditor.min.js"></script>

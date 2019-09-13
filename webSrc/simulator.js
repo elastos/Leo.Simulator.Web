@@ -11,6 +11,8 @@ const main = ()=>{
   document.getElementById('layer1PeerId').innerText = window.simState.getLayerOnePeerId();
   var container = document.getElementById("jsoneditor");
   var editor = new JSONEditor(container, {});
+  var blockJsonEditContainer = document.getElementById("jsoneditorForBlock");
+  var blockJsonEditor = new JSONEditor(blockJsonEditContainer, {});
 
   document.getElementById('btn1').onclick = ()=>{
     const userName = document.getElementById('userName').innerHTML.trim();
