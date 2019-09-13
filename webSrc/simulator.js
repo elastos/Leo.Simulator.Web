@@ -84,44 +84,72 @@ const main = ()=>{
   
   document.getElementById('sendAction').onclick = async ()=>{
     const userName = document.getElementById('userName').value.trim();
-    document.getElementById('initiatorResponse').innerHTML = "";
-    document.getElementById('initiatorError').innerHTML = "";
-
-    console.log("ready to send action,",JSON.stringify(editor.get(), null, 2));
+    if(! userName){
+      return o('error', 'Please select user before sending action on behalf of this user');
+    }
+    const layerOnePeerId =  window.simState.getLayerOnePeerId();
+    if(! layerOnePeerId){
+      return o('error', 'We have to wait to get connected to the layerOne before sending transaction');
+    }
     const jsonObj = editor.get();
     const warpper = {
+      type:'webUiAction',
       initiatorUserName: userName,
       action:jsonObj
     }
-    const url = 'http://' + window.layerOneIpAddress + '/poc/action';
-    console.log('url:', url);
-    const response = await fetch(url, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, cors, *same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'omit', // include, *same-origin, omit
-      headers: {
-          'Content-Type': 'application/json',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrer: 'no-referrer', // no-referrer, *client
-      body: JSON.stringify(warpper), // body data type must match "Content-Type" header
-    });
+    const responseCallBack = (res, err)=>{
+      if(err){
+        return o('error', 'Send tx to layerone get error response', err);
+      }
+      o('success', 'Transaction sent to layer one');
+    };
+    global.rpcEvent.emit('rpcRequest', {
+      sendToPeerId: layerOnePeerId, 
+      message : JSON.stringify(warpper), 
+      responseCallBack
+    })
+  }
+
+  // document.getElementById('sendAction1').onclick = async ()=>{
+  //   const userName = document.getElementById('userName').value.trim();
+  //   document.getElementById('initiatorResponse').innerHTML = "";
+  //   document.getElementById('initiatorError').innerHTML = "";
+
+  //   console.log("ready to send action,",JSON.stringify(editor.get(), null, 2));
+  //   const jsonObj = editor.get();
+  //   const warpper = {
+  //     initiatorUserName: userName,
+  //     action:jsonObj
+  //   }
+  //   const url = 'http://' + window.layerOneIpAddress + '/poc/action';
+  //   console.log('url:', url);
+  //   const response = await fetch(url, {
+  //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
+  //     mode: 'cors', // no-cors, cors, *same-origin
+  //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+  //     credentials: 'omit', // include, *same-origin, omit
+  //     headers: {
+  //         'Content-Type': 'application/json',
+  //         // 'Content-Type': 'application/x-www-form-urlencoded',
+  //     },
+  //     redirect: 'follow', // manual, *follow, error
+  //     referrer: 'no-referrer', // no-referrer, *client
+  //     body: JSON.stringify(warpper), // body data type must match "Content-Type" header
+  //   });
 
 
     
-    if(response.ok) {
-      const result = await response.blob()
+  //   if(response.ok) {
+  //     const result = await response.blob()
     
-      document.getElementById('initiatorResponse').innerHTML = result;
-    }
-    else{
-      document.getElementById('initiatorError').innerHTML = response.blob();
-    }
+  //     document.getElementById('initiatorResponse').innerHTML = result;
+  //   }
+  //   else{
+  //     document.getElementById('initiatorError').innerHTML = response.blob();
+  //   }
 
     
-  };
+  // };
 
   document.getElementById('sendToTaskRoomDebug').onclick = async ()=>{
     const jsonObj = editor.get();
