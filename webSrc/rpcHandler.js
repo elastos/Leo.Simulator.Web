@@ -20,3 +20,17 @@ exports.reqUserInfo = ({from, guid})=>{
 
   o('log', 'I received layerOne asking for UserInfo. replied webUi');
 };
+
+exports.ping = ({from, guid})=>{
+  o('debug', `I receive another peer ${from} ping. I response my userInfo`);
+  const resMessage = {
+    type:'pong',
+    userInfo:null,
+    specialRole:'WebUi'
+  };
+  global.rpcEvent.emit('rpcResponse', {
+    sendToPeerId: from,
+    message: JSON.stringify(resMessage),
+    guid
+  });
+};

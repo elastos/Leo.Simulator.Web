@@ -15,7 +15,7 @@ class SimState extends EventEmitter{
     this._lastBlock = null;
     this._lastBlockCid = '';
     this._layerOnePeerId = '';
-    this._peers = {};
+    this._users = {};
     autoBind(this);
   }
 
@@ -39,21 +39,33 @@ class SimState extends EventEmitter{
     return this._layerOnePeerId;
   }
 
+  isUserExisting(userName){
+    
+    return this._users[userName]? true: false;
+  }
+
   hasPeerRegistered(peer){
-    return this._peers[peer]? true: false;
+    return Object.values(this._users).filter(u=>u.getPeerId() == peer).length > 0? true: false;
   }
 
   newPeerJoin(peer, userInfo){
-    if(this.hasPeerRegistered(peer))
+    if(! userInfo)
       return;
+    if(this.isUserExisting(userInfo.username)){
+      if(this._users[userInfo.userName].getPeerId() != peer){
+        this._users[userInfo.userName].setPeerId(peer);
+      }
+      this._users[userInfo.userName].setUserOnline();
+      return;
+    }
     const userTableRowsParent = document.getElementById('userStateTableRoot');
     
-    this._peers[peer] = new PeerState(userTableRowsParent, peer, userInfo);
-    this._peers[peer].addToDom();
+    this._users[userInfo.userName] = new PeerState(userTableRowsParent, peer, userInfo);
+    this._users[userInfo.userName].addToDom();
   }
 
-  getPeerState(peer){
-    return this._peers[peer];
+  getCurrentBlock(){
+    return this._currentBlock;
   }
 
 }

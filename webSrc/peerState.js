@@ -45,21 +45,72 @@ export default class PeerState{
     this._parentDomEle.appendChild(this._tr);
   }
 
-
+  getPeerId(){
+    return this._peerId;
+  }
+  setPeerId(peerId){
+    this._peerId = peerId;
+  }
   isExistInDom(){
     return false;
   }
   updateOnNewBlock({block}){
     const gas = block.gasMap[this._userName];
     const credit = block.creditMap[this._userName];
-    this._col1.innerText = gas;
-    this._col2.innerText = credit;
-    this._col3.innerText = "";
+    this._changeInnerText(this._col1, gas);
+    this._changeInnerText(this._col2, credit);
   }
   peerLeft(){
 
   }
   peerJoin(){
 
+  }
+  setUserOnline(){
+    if(this._isOnline == true)  return;
+    this._isOnline = true;
+    
+    this._col3.innerText = 'Offline';
+    this._changeInnerText(this._col3, 'Offline');
+    this._changeInnerText(this._actionEle, '');
+
+  }
+  setUserOffLine(){
+    if(this._isOnline == false) return;
+    this._isOnline = false;
+    const block = global.simState.getCurrentBlock();
+    const gas = block.gasMap[this._userName];
+    const credit = block.creditMap[this._userName];
+    this._changeInnerText(this._col1, gas);
+    this._changeInnerText(this._col2, credit);
+    this._changeInnerText(this._col3, 'Online');
+    this._changeInnerText(this._col4, 'Action');
+
+  }
+  _changeInnerText(ele, value){
+    if(ele.innerText == value){
+      const classAttribute = ele.getAttribute("class");
+      if(classAttribute){
+        const classes = classAttribute.split(' ');
+        const classOmitBold = classes.filter(c=>c != 'font-weight-bold');
+        ele.setAttribute('class', classOmitBold.join(' '));
+      }
+      else{
+       
+      }
+    }
+    else{
+      ele.innerText = value;
+      const classAttribute = ele.getAttribute("class");
+      if(classAttribute){
+        const classes = classAttribute.split(' ');
+        const classOmitBold = classes.filter(c=>c != 'font-weight-bold');
+        classOmitBold.push('font-weight-bold');
+        ele.setAttribute('class', classOmitBold.join(' '));
+      }
+      else{
+        ele.setAttribute('class', 'font-weight-bold');
+      }
+    }
   }
 }

@@ -11,15 +11,19 @@ exports.peerJoined = (peer)=>{
       message:JSON.stringify({type:'ping', userInfo:global.userInfo}),
       responseCallBack:(res, err)=>{
         if(err){
-          o('error', 'Ping another peer got err:', err);
+          o('error', `Ping another peer ${peer} got err:`, err);
         }
         else{
-          const {type, userInfo} = res;
+          const {type, userInfo, specialRole} = res;
           console.assert(type == 'pong');
           o('debug', `I receive a pong from peer ${peer}, userInfo added to my peer list,`, userInfo)
           if(userInfo){
             global.simState.newPeerJoin(peer, userInfo);
-          }else{
+          }
+          else if(specialRole == 'LayerOneBlockChain'){
+            global.simState.updateLayerOnePeerId(peer);
+          }
+          else{
             o('error', 'A peer doesnt response a valid userInfo. Probably he hasnot got his user from layerone yet', peer);
           }
         }
