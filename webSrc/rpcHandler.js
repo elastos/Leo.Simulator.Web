@@ -23,6 +23,7 @@ exports.reqUserInfo = ({from, guid})=>{
 
 exports.ping = ({from, guid})=>{
   o('debug', `I receive another peer ${from} ping. I response my userInfo`);
+
   const resMessage = {
     type:'pong',
     userInfo:null,
@@ -34,3 +35,13 @@ exports.ping = ({from, guid})=>{
     guid
   });
 };
+
+exports.updateNodeUserInfo = ({from, guid, messageObj})=>{
+  const {userInfo} = messageObj;
+  global.simState.peerUpdateUserInfo(from, userInfo);
+  global.rpcEvent.emit('rpcResponse', {
+    sendToPeerId: from,
+    message: "{resposne: 'ok'}",
+    guid
+  });
+}

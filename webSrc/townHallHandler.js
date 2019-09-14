@@ -35,12 +35,7 @@ exports.peerJoined = (peer)=>{
     console.log(`I have him into peer list`, peer);
 };
 exports.peerLeft = (peer)=>{
-  // if(global.allPeers[peer]){
-  //   console.log(`peer ${peer} left. His userinfo:`, global.allPeers[peer].userInfo);
-  //   delete global.allPeers[peer];
-  // }
-  // else
-    console.log(`peer ${peer} left`);
+  global.simState.peerLeft(peer);
 };
 exports.subscribed = (m)=>console.log(`Subscribed ${m}`);
 

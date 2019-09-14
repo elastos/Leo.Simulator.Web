@@ -60,31 +60,29 @@ export default class PeerState{
     this._changeInnerText(this._col1, gas);
     this._changeInnerText(this._col2, credit);
   }
-  peerLeft(){
 
-  }
-  peerJoin(){
-
-  }
-  setUserOnline(){
-    if(this._isOnline == true)  return;
-    this._isOnline = true;
+  setUserOffline(){
+    if(this._isOnline == false)  return;
+    this._isOnline = false;
     
     this._col3.innerText = 'Offline';
     this._changeInnerText(this._col3, 'Offline');
     this._changeInnerText(this._actionEle, '');
 
   }
-  setUserOffLine(){
-    if(this._isOnline == false) return;
-    this._isOnline = false;
+  setUserOnline(){
+    if(this._isOnline == true) return;
+    this._isOnline = true;
     const block = global.simState.getCurrentBlock();
-    const gas = block.gasMap[this._userName];
-    const credit = block.creditMap[this._userName];
-    this._changeInnerText(this._col1, gas);
-    this._changeInnerText(this._col2, credit);
+    if(block){
+      const gas = block.gasMap[this._userName];
+      const credit = block.creditMap[this._userName];
+      this._changeInnerText(this._col1, gas);
+      this._changeInnerText(this._col2, credit);
+    }
+
     this._changeInnerText(this._col3, 'Online');
-    this._changeInnerText(this._col4, 'Action');
+    this._changeInnerText(this._actionEle, 'Action');
 
   }
   _changeInnerText(ele, value){
