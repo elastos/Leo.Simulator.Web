@@ -5,6 +5,7 @@ import autoBind from 'auto-bind';
 export default ()=>{
   return new SimState();
 }
+import PeerState from './peerState';
 
 class SimState extends EventEmitter{
   constructor(){
@@ -14,6 +15,7 @@ class SimState extends EventEmitter{
     this._lastBlock = null;
     this._lastBlockCid = '';
     this._layerOnePeerId = '';
+    this._peers = {};
     autoBind(this);
   }
 
@@ -36,4 +38,22 @@ class SimState extends EventEmitter{
   getLayerOnePeerId(){
     return this._layerOnePeerId;
   }
+
+  hasPeerRegistered(peer){
+    return this._peers[peer]? true: false;
+  }
+
+  newPeerJoin(peer, userInfo){
+    if(this.hasPeerRegistered(peer))
+      return;
+    const userTableRowsParent = document.getElementById('userStateTableRoot');
+    
+    this._peers[peer] = new PeerState(userTableRowsParent, peer, userInfo);
+    this._peers[peer].addToDom();
+  }
+
+  getPeerState(peer){
+    return this._peers[peer];
+  }
+
 }
