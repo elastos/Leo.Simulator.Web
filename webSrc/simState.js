@@ -85,5 +85,10 @@ class SimState extends EventEmitter{
   getCurrentBlock(){
     return this._currentBlock;
   }
-
+  nodeStatusUpdate({from, type, content}){
+    const peerState = this._findPeerStateByPeerId(from);
+    if(peerState){
+      peerState.statusUpdate(type, content);
+    }
+  }
 }

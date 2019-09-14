@@ -1,6 +1,7 @@
 const {o} = './utils';
 import EventEmitter from 'events';
 import autoBind from 'auto-bind';
+import { ENGINE_METHOD_DIGESTS } from 'constants';
 
 export default class PeerState{
   constructor(parentDomEle, peerId, userInfo){
@@ -87,25 +88,32 @@ export default class PeerState{
     this._changeInnerText(this._actionEle, 'Action');
 
   }
-  _removeBold(ele){
+  _removeStyleClass(ele, styleClass){
     const classAttribute = ele.getAttribute("class");
     if(classAttribute){
       const classes = classAttribute.split(' ');
-      const classOmitBold = classes.filter(c=>c != 'font-weight-bold');
+      const classOmitBold = classes.filter(c=>c != styleClass);
       ele.setAttribute('class', classOmitBold.join(' '));
     }
   }
-  _addBold(ele){
+  _removeBold(ele){
+    this._removeStyleClass(ele, 'font-weight-bold' )
+  }
+  _addStyleClass(ele, styleClass){
+    if(! styleClass)  return;
     const classAttribute = ele.getAttribute("class");
     if(classAttribute){
       const classes = classAttribute.split(' ');
-      const classOmitBold = classes.filter(c=>c != 'font-weight-bold');
-      classOmitBold.push('font-weight-bold');
+      const classOmitBold = classes.filter(c=>c != styleClass);
+      classOmitBold.push(styleClass);
       ele.setAttribute('class', classOmitBold.join(' '));
     }
     else{
-      ele.setAttribute('class', 'font-weight-bold');
+      ele.setAttribute('class', styleClass);
     }
+  }
+  _addBold(ele){
+    this._addStyleClass(ele, 'font-weight-bold');
   }
   _changeInnerText(ele, value){
     if(ele.innerText == value && value){
@@ -121,5 +129,17 @@ export default class PeerState{
       }
       
     }
+  }
+
+  statusUpdate(type, content){
+    this._changeInnerText(this._col3, content);
+    const styleMap={
+      status:'text-secondary',
+      info: "text-primary",
+      error: 'text-danger',
+      warning: 'text-warning'
+    }
+
+    this._addStyleClass(this._col3, styleMap[type]);
   }
 }

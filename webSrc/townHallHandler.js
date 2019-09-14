@@ -79,3 +79,22 @@ exports.rpcDirect = (message) => {
     return o('error', 'executing handlerFunction inside townhall has exception:', e);
   }
 }
+
+exports.messageHandler = (message)=>{
+  const {from, data} = message;
+  const messageObj = tryParseJson(message.data.toString());
+  if(! messageObj)
+    return console.log("townHallMessageHandler received non-parsable message, ", messageString);
+  const {type, content} = messageObj;
+  switch(type){
+    case "status":
+    case "info":
+    case "error":
+    case "warning":
+      global.simState.nodeStatusUpdate({from, type, content});
+      break;
+    default:
+      o('error', ' we do not support this type of WebUi status message, ', type);
+  }
+
+}

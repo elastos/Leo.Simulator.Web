@@ -68,6 +68,7 @@ export default (simState)=>{
     townHall.on('peer left', townHallHandler.peerLeft);
     townHall.on('subscribed', townHallHandler.subscribed);
     townHall.on('rpcDirect', townHallHandler.rpcDirect);
+    townHall.on('message', townHallHandler.messageHandler);
     //townHall.on('message', messageHandler);
     townHall.on('error', (err)=>o('error', `*******   townHall has pubsubroom error,`, err));
     townHall.on('stopping', ()=>o('error', `*******   townHall is stopping`));
