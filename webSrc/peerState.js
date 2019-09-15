@@ -13,7 +13,13 @@ export default class PeerState{
     this._tr = document.createElement('tr');
     this._th = document.createElement('th');
     this._th.setAttribute('scope', 'row');
-    this._th.innerText = userInfo.userName;
+    this._actionEle = document.createElement('a');
+    this._actionEle.setAttribute('href', '#');
+    this._actionEle.setAttribute('data-toggle', 'modal');
+    this._actionEle.setAttribute('data-user-id', this._userName);
+    this._actionEle.setAttribute('data-target',' #exampleModalCenter');
+    this._actionEle.innerText = this._userName;
+    this._th.appendChild(this._actionEle);
     
     this._col1 = document.createElement('td');
 
@@ -21,22 +27,12 @@ export default class PeerState{
 
     this._col3 = document.createElement('td');
     this._col3.innerText = "just joined";
-    this._col4 = document.createElement('td');
     
-    this._actionEle = document.createElement('a');
-    this._actionEle.setAttribute('href', '#');
-    this._actionEle.setAttribute('data-toggle', 'modal');
-    this._actionEle.setAttribute('data-user-id', this._userName);
-    this._actionEle.setAttribute('data-target',' #exampleModalCenter');
-    this._actionEle.innerText = 'Action';
-   
-    this._col4.appendChild(this._actionEle);
     this._tr.appendChild(this._th);
     this._tr.appendChild(this._col1);
     this._tr.appendChild(this._col2);
     this._tr.appendChild(this._col3);
-    this._tr.appendChild(this._col4);
-  
+
     global.simState.on('blockChange', this.updateOnNewBlock.bind(this))
     global.simState.setMaxListeners(global.simState.getMaxListeners() + 1);
     autoBind(this);
@@ -58,10 +54,9 @@ export default class PeerState{
   updateOnNewBlock({block}){
     const gas = block.gasMap[this._userName];
     const credit = block.creditMap[this._userName];
-    this._changeInnerText(this._col1, gas);
-    this._changeInnerText(this._col2, credit);
+    this._changeInnerText(this._col1, gas.toFixed(2));
+    this._changeInnerText(this._col2, credit.toFixed(2));
     this._changeInnerText(this._col3, '');
-    this._removeBold(this._col4);
   }
 
   setUserOffline(){
@@ -70,8 +65,8 @@ export default class PeerState{
     
     this._col3.innerText = 'Offline';
     this._changeInnerText(this._col3, 'Offline');
-    this._changeInnerText(this._actionEle, '');
-
+    this._actionEle.setAttribute('href', "");
+    this._actionEle.removeAttribute('href');
   }
   setUserOnline(){
     if(this._isOnline == true) return;
@@ -85,8 +80,7 @@ export default class PeerState{
     }
 
     this._changeInnerText(this._col3, 'Online');
-    this._changeInnerText(this._actionEle, 'Action');
-
+    this._actionEle.setAttribute('href', "#");
   }
   _removeStyleClass(ele, styleClass){
     const classAttribute = ele.getAttribute("class");
