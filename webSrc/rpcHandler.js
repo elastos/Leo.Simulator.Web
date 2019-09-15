@@ -11,14 +11,8 @@ exports.reqUserInfo = ({from, guid})=>{
     type:'resUserFromWebUi',
     userName:'WebUi'
   };
-
-  global.rpcEvent.emit('rpcResponse', {
-    sendToPeerId: from, 
-    message : JSON.stringify(resMessage), 
-    guid
-  });
-
   o('log', 'I received layerOne asking for UserInfo. replied webUi');
+  return {resMessage}
 };
 
 exports.ping = ({from, guid})=>{
@@ -29,19 +23,11 @@ exports.ping = ({from, guid})=>{
     userInfo:null,
     specialRole:'WebUi'
   };
-  global.rpcEvent.emit('rpcResponse', {
-    sendToPeerId: from,
-    message: JSON.stringify(resMessage),
-    guid
-  });
+  return {resMessage}
 };
 
 exports.updateNodeUserInfo = ({from, guid, messageObj})=>{
   const {userInfo} = messageObj;
   global.simState.peerUpdateUserInfo(from, userInfo);
-  global.rpcEvent.emit('rpcResponse', {
-    sendToPeerId: from,
-    message: "{resposne: 'ok'}",
-    guid
-  });
+  return {resMessage: "{resposne: 'ok'}"}
 }

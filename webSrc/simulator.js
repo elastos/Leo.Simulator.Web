@@ -6,8 +6,6 @@ import toastr from 'toastr';
 const main = ()=>{
   window.simState = simState();
 
-  window.layerOneIpAddress = getUrlVars().layer1 ? getUrlVars().layer1 : 'localhost:3000';
-  document.getElementById('layer1ip').innerText = window.layerOneIpAddress;
   document.getElementById('layer1PeerId').innerText = window.simState.getLayerOnePeerId();
   var container = document.getElementById("jsoneditor");
   var editor = new JSONEditor(container, {});
@@ -133,38 +131,38 @@ const main = ()=>{
   }
 
   document.getElementById('sendToTaskRoomDebug').onclick = async ()=>{
-    const jsonObj = editor.get();
-    const url = 'http://' + window.layerOneIpAddress + '/poc/debug';
-    console.log('url:', url);
-    const response = await fetch(url, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, cors, *same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'omit', // include, *same-origin, omit
-      headers: {
-          'Content-Type': 'application/json',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrer: 'no-referrer', // no-referrer, *client
-      body: JSON.stringify(jsonObj), // body data type must match "Content-Type" header
-    });
+  //   const jsonObj = editor.get();
+  //   const url = 'http://' + window.layerOneIpAddress + '/poc/debug';
+  //   console.log('url:', url);
+  //   const response = await fetch(url, {
+  //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
+  //     mode: 'cors', // no-cors, cors, *same-origin
+  //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+  //     credentials: 'omit', // include, *same-origin, omit
+  //     headers: {
+  //         'Content-Type': 'application/json',
+  //         // 'Content-Type': 'application/x-www-form-urlencoded',
+  //     },
+  //     redirect: 'follow', // manual, *follow, error
+  //     referrer: 'no-referrer', // no-referrer, *client
+  //     body: JSON.stringify(jsonObj), // body data type must match "Content-Type" header
+  //   });
     
-    if(response.ok) {
-      const result = await response.blob();
+  //   if(response.ok) {
+  //     const result = await response.blob();
     
-      document.getElementById('initiatorResponse').innerHTML = result;
-    }
-    else{
-      document.getElementById('initiatorError').innerHTML = response.blob();
-    }
+  //     document.getElementById('initiatorResponse').innerHTML = result;
+  //   }
+  //   else{
+  //     document.getElementById('initiatorError').innerHTML = response.blob();
+  //   }
 
-  }
-  document.getElementById('showPeerMgr').onclick = ()=>{
-    editor.set({
-      txType:"debug_showPeerMgr"
+  // }
+  // document.getElementById('showPeerMgr').onclick = ()=>{
+  //   editor.set({
+  //     txType:"debug_showPeerMgr"
       
-    })
+  //   })
   };
 
   window.simState.on('layerOnePeerIdChanged', (args)=>{

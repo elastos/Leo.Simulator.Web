@@ -2,7 +2,7 @@
 import {utilities} from 'leo.simulator.shared';
 const {o, tryParseJson} = utilities;
 import {constValue} from 'leo.simulator.shared';
-import rpcDirectHandler from './rpcHandler';
+
 exports.peerJoined = (peer)=>{
   if(global.simState.hasPeerRegistered(peer) == false && peer != global.simState.getLayerOnePeerId()){
       
@@ -57,28 +57,28 @@ exports.rpcResponse =  (room)=>(args)=>{
 }
 
 
-exports.rpcDirect = (message) => {
-  //o('log', 'In townhall got RPC message from ' + message.from + ': ', message);
-  if(! message.guid || ! message.verb)
-    return console.log("twonHall RPC handler got a message not standard RPC,", message);
-  const messageObj = tryParseJson(message.data.toString());
-  if(! messageObj)
-    return console.log("townHallMessageHandler received non-parsable message, ", messageString);
+// exports.rpcDirect = (message) => {
+//   //o('log', 'In townhall got RPC message from ' + message.from + ': ', message);
+//   if(! message.guid || ! message.verb)
+//     return console.log("twonHall RPC handler got a message not standard RPC,", message);
+//   const messageObj = tryParseJson(message.data.toString());
+//   if(! messageObj)
+//     return console.log("townHallMessageHandler received non-parsable message, ", messageString);
   
-  const handlerFunction = rpcDirectHandler[messageObj.type];
-  try {
-      if(typeof handlerFunction == 'function'){
-      handlerFunction({from:message.from, guid:message.guid, messageObj});
-      return
-    }
-    else{
-      return o('error', "townHallMessageHandler received unknown type message object,", messageObj );
-    }
-  }
-  catch(e){
-    return o('error', 'executing handlerFunction inside townhall has exception:', e);
-  }
-}
+//   const handlerFunction = rpcDirectHandler[messageObj.type];
+//   try {
+//       if(typeof handlerFunction == 'function'){
+//       handlerFunction({from:message.from, guid:message.guid, messageObj});
+//       return
+//     }
+//     else{
+//       return o('error', "townHallMessageHandler received unknown type message object,", messageObj );
+//     }
+//   }
+//   catch(e){
+//     return o('error', 'executing handlerFunction inside townhall has exception:', e);
+//   }
+// }
 
 exports.messageHandler = (message)=>{
   const {from, data} = message;

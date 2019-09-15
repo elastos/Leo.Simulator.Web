@@ -5,8 +5,8 @@ import Room from 'ipfs-pubsub-room';
 import { utilities} from 'leo.simulator.shared';
 const {o} = utilities;
 import newBlockHandler from './newBlockHandler';
-
-import messageHandler from './messageHandler';
+import rpcDirectHandler from './rpcHandler';
+import rpcResponse from './rpcResponse'
 import townHallHandler from './townHallHandler';
 export default (simState)=>{
   const swarmUrl = (()=>{
@@ -67,7 +67,7 @@ export default (simState)=>{
     townHall.on('peer joined', townHallHandler.peerJoined);
     townHall.on('peer left', townHallHandler.peerLeft);
     townHall.on('subscribed', townHallHandler.subscribed);
-    townHall.on('rpcDirect', townHallHandler.rpcDirect);
+    townHall.on('rpcDirect', rpcResponse(rpcDirectHandler));
     townHall.on('message', townHallHandler.messageHandler);
     //townHall.on('message', messageHandler);
     townHall.on('error', (err)=>o('error', `*******   townHall has pubsubroom error,`, err));
