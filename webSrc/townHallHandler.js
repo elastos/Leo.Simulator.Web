@@ -2,6 +2,7 @@
 import {utilities} from 'leo.simulator.shared';
 const {o, tryParseJson} = utilities;
 import {constValue} from 'leo.simulator.shared';
+import {cache} from './utils';
 
 exports.peerJoined = (peer)=>{
   if(global.simState.hasPeerRegistered(peer) == false && peer != global.simState.getLayerOnePeerId()){
@@ -51,8 +52,8 @@ exports.rpcRequest = (room)=>(args)=>{
   room.rpcRequest(sendToPeerId, message, responseCallBack);
 }
 exports.rpcResponse =  (room)=>(args)=>{
-  const {sendToPeerId, message, guid, err} = args;
-  //o('debug', 'inside exports.rpcResponse:', sendToPeerId, message, guid, err);
+  const {sendToPeerId, message, guid, err, result} = args;
+  o('debug', 'inside exports.rpcResponse:', sendToPeerId, message, guid, err, result);
   room.rpcResponse(sendToPeerId, message, guid, err);
 }
 
@@ -92,6 +93,14 @@ exports.messageHandler = (message)=>{
     case "error":
     case "warning":
       global.simState.nodeStatusUpdate({from, type, content});
+      break;
+    case 'data':
+      cache.set('task_data', {
+        type : 'image',
+        txType : 'TaskComputeResult',
+        data : 'data:image/jpeg;base64,'+content
+      });
+      console.log('rpc data: ', content);
       break;
     default:
       o('error', ' we do not support this type of WebUi status message, ', type);

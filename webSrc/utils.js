@@ -9,6 +9,16 @@ exports.getUrlVars = ()=>{
   return vars;
 }
 
+let _cache = {};
+exports.cache = {
+  set(key, value){
+    _cache[key] = value;
+  },
+  get(key){
+    return _cache[key] || null;
+  }
+};
+
 exports.tryParseJson = (s)=>{
   try{
     return JSON.parse(s);

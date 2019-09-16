@@ -2,6 +2,7 @@ const {o} = './utils';
 import EventEmitter from 'events';
 import autoBind from 'auto-bind';
 import { ENGINE_METHOD_DIGESTS } from 'constants';
+import {_} from 'lodash';
 
 export default class PeerState{
   constructor(parentDomEle, peerId, userInfo){
@@ -136,4 +137,5 @@ export default class PeerState{
 
     this._addStyleClass(this._col3, styleMap[type]);
   }
+
 }
