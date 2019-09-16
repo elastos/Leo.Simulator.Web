@@ -1,8 +1,10 @@
 import {getUrlVars} from './utils';
 import ipfsPubsub from './ipfsPubSub';
 import simState from './simState';
-import {o} from './utils';
+import {o, cache} from './utils';
+import _ from 'lodash';
 import toastr from 'toastr';
+import { utils } from 'vrf.js';
 const main = ()=>{
   window.simState = simState();
 
@@ -164,6 +166,63 @@ const main = ()=>{
       
   //   })
   };
+
+  document.getElementById('js_upload').onchange = async (e)=>{
+    const userName = document.getElementById('userName').value.trim();
+  
+    const file = e.target.files[0];
+    const fr = new FileReader();
+    fr.onload = async ()=>{
+      // const cid = await ipfs.dag.put({
+      //   type : 'image',
+      //   code : fr.result
+      // });
+      const code = fr.result.replace('data:image/jpeg;base64,', '');
+
+      editor.set({
+        txType:"uploadLambda",
+        code: code,
+        dockerImg:"image",
+        payment:"payPerUse",
+        ownerName:userName,
+        amt:2
+      });
+
+      cache.set('task_data', {
+        ownerName:userName,
+        data: fr.result,
+        type: 'image',
+        txType : 'uploadLambda'
+      });
+
+      document.getElementById('js_upload').value = '';
+    };
+    fr.readAsDataURL(file);
+  };
+
+
+  $('#showDataModal').click(()=>{
+    const d = cache.get('task_data');
+    if(!d){
+      alert('no task data value');
+      return false;
+    }
+
+    console.log(d);
+    $('#js_data').modal('show');
+    _.delay(()=>{
+      let html = '';
+      html += `<div>Tx Type: ${d.txType}</div>`;
+      html += `<div>Type: ${d.type}</div>`;
+      // html += `<div>Owner Name: ${d.ownerName}</div>`;
+
+      if(d.type === 'image'){
+        html += '<img style="width: 100%; margin: 12px auto;" src="'+d.data+'" />';
+      }
+
+      $('#js_data').find('.js_body').html(html);
+    }, 100);
+  })
 
   window.simState.on('layerOnePeerIdChanged', (args)=>{
     o('success', 'layerOnePeerIdChanged', args);

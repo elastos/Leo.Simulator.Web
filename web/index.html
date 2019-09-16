@@ -98,6 +98,18 @@
             </p>
         </div>
       </div>
+
+      <div class="card mt-3">
+        <div class="card-header" data-toggle="collapse" aria-expanded="true">
+          Task Data Modal
+        </div>
+        <div class="card-body collapse show" id="layerOneStatus">
+          <p>
+            <button id='showDataModal'>Show Task Data Modal</button>
+          </p>
+          
+        </div>
+      </div>
   
         
       <!-- Modal -->
@@ -119,6 +131,9 @@
                 <li id='btn2' class="list-group-item list-group-item-action ">new node join waiting for RA</li>
                 <li id='btn3' class="list-group-item list-group-item-action ">Set Proof of Trust (to be hacked?)</li>
                 <li id='btn4' class="list-group-item list-group-item-action ">Post a Lambda</li>
+                
+                <li class="list-group-item list-group-item-action">Upload Jpg Image Here as Lambda Code <input type="file" id="js_upload" /></li>
+
                 <li id='btn5' class="list-group-item list-group-item-action ">Compute Task</li>
               </ul>
               <div id="jsoneditor" style="width: 400px; height: 300px;"></div>
@@ -127,6 +142,25 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button id='sendAction' type="button" class="btn btn-primary" data-dismiss="modal">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="js_data" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Task Data Modal</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body js_body">
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>

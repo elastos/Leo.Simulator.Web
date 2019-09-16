@@ -91,4 +91,7 @@ class SimState extends EventEmitter{
       peerState.statusUpdate(type, content);
     }
   }
+  nodeDataUpdate({from, type, content}){
+    
+  }
 }
