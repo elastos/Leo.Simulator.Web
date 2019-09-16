@@ -56,7 +56,7 @@ export default class PeerState{
     const credit = block.creditMap[this._userName];
     this._changeInnerText(this._col1, gas.toFixed(2));
     this._changeInnerText(this._col2, credit.toFixed());
-    this._changeInnerText(this._col3, '');
+    //this._changeInnerText(this._col3, '');
   }
 
   setUserOffline(){

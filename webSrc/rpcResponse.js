@@ -11,14 +11,14 @@ export default (rpcDirectHandler)=>async ({from, guid, verb, data})=>{
   const handlerFunction = rpcDirectHandler[type];
   try {
     if(typeof handlerFunction == 'function'){
-      const {resMessage, err, rpcResponseWithNewRequest} = await handlerFunction({from, message});
+      const {resMessage, err, responseCallBack} = await handlerFunction({from, message});
       if(typeof rpcResponseWithNewRequest == 'function'){
         global.rpcEvent.emit('rpcResponseWithNewRequest', {
           sendToPeerId: from, 
           message : resMessage? (typeof resMessage == 'object'? JSON.stringify(resMessage) : resMessage) : null, 
           guid,
           err: err? (typeof err == 'object'? JSON.stringify(err) : err) : null,
-          rpcResponseWithNewRequest
+          responseCallBack
         });
       }else{
         global.rpcEvent.emit('rpcResponse', {
