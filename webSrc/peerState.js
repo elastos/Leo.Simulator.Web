@@ -26,7 +26,7 @@ export default class PeerState{
     this._col2 = document.createElement('td');
 
     this._col3 = document.createElement('td');
-    this._col3.innerText = "just joined";
+    this._col3.innerText = 'online';
     
     this._tr.appendChild(this._th);
     this._tr.appendChild(this._col1);
@@ -56,7 +56,7 @@ export default class PeerState{
     const credit = block.creditMap[this._userName];
     this._changeInnerText(this._col1, gas.toFixed(2));
     this._changeInnerText(this._col2, credit.toFixed());
-    
+    this._changeInnerText(this._col3, '');
   }
 
   setUserOffline(){
@@ -65,8 +65,9 @@ export default class PeerState{
     
     this._col3.innerText = 'Offline';
     this._changeInnerText(this._col3, 'Offline');
-    this._actionEle.setAttribute('href', "");
+    
     this._actionEle.removeAttribute('href');
+    this._actionEle.removeAttribute('data-toggle');
   }
   setUserOnline(){
     if(this._isOnline == true) return;
@@ -81,6 +82,7 @@ export default class PeerState{
 
     this._changeInnerText(this._col3, 'Online');
     this._actionEle.setAttribute('href', "#");
+    this._actionEle.setAttribute('data-toggle', "modal");
   }
   _removeStyleClass(ele, styleClass){
     const classAttribute = ele.getAttribute("class");

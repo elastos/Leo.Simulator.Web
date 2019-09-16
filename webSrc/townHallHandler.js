@@ -8,7 +8,7 @@ exports.peerJoined = (peer)=>{
       
     global.rpcEvent.emit('rpcRequest', {
       sendToPeerId:peer,
-      message:JSON.stringify({type:'ping', userInfo:global.userInfo}),
+      message:JSON.stringify({type:'ping', userInfo:global.userInfo, specialRole: 'WebUi'}),
       responseCallBack:(res, err)=>{
         if(err){
           o('error', `Ping another peer ${peer} got err:`, err);

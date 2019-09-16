@@ -4,7 +4,7 @@ const {o, tryParseJson} = utilities;
 import {constValue} from 'leo.simulator.shared';
 
 
-exports.reqUserInfo = ({from, guid})=>{
+exports.reqUserInfo = ({from})=>{
   simState.updateLayerOnePeerId(from);
 
   const resMessage = {
@@ -15,7 +15,7 @@ exports.reqUserInfo = ({from, guid})=>{
   return {resMessage}
 };
 
-exports.ping = ({from, guid})=>{
+exports.ping = ({from})=>{
   o('debug', `I receive another peer ${from} ping. I response my userInfo`);
 
   const resMessage = {
@@ -26,8 +26,9 @@ exports.ping = ({from, guid})=>{
   return {resMessage}
 };
 
-exports.updateNodeUserInfo = ({from, guid, messageObj})=>{
-  const {userInfo} = messageObj;
+exports.updateNodeUserInfo = ({from, message})=>{
+  const {userInfo} = message;
   global.simState.peerUpdateUserInfo(from, userInfo);
+  console.log('user send me updateNodeUserInfo,', userInfo);
   return {resMessage: "{resposne: 'ok'}"}
 }
