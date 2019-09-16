@@ -172,7 +172,7 @@ const main = ()=>{
 
   window.simState.on('blockChange', ({block})=>{
     o('success', 'new block height: ', block.blockHeight);
-    document.getElementById('blockheight').innerHTML = block.blockHeight;
+    document.getElementById('blockheight').innerHTML = 'Block #' + block.blockHeight;
     blockJsonEditor.set(block);
   })
   ipfsPubsub(window.simState);

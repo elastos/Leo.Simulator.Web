@@ -56,16 +56,14 @@ export default class PeerState{
     const credit = block.creditMap[this._userName];
     this._changeInnerText(this._col1, gas.toFixed(2));
     this._changeInnerText(this._col2, credit.toFixed());
-    //this._changeInnerText(this._col3, '');
+   
   }
 
   setUserOffline(){
     if(this._isOnline == false)  return;
     this._isOnline = false;
     
-    this._col3.innerText = 'Offline';
-    this._changeInnerText(this._col3, 'Offline');
-    
+    this.statusUpdate('text-secondary', 'Offline')
     this._actionEle.removeAttribute('href');
     this._actionEle.removeAttribute('data-toggle');
   }
@@ -80,7 +78,7 @@ export default class PeerState{
       this._changeInnerText(this._col2, credit.toFixed());
     }
 
-    this._changeInnerText(this._col3, 'Online');
+    this.statusUpdate('text-secondary', 'Online')
     this._actionEle.setAttribute('href', "#");
     this._actionEle.setAttribute('data-toggle', "modal");
   }
