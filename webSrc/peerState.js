@@ -87,8 +87,8 @@ export default class PeerState{
     const classAttribute = ele.getAttribute("class");
     if(classAttribute){
       const classes = classAttribute.split(' ');
-      const classOmitBold = classes.filter(c=>c != styleClass);
-      ele.setAttribute('class', classOmitBold.join(' '));
+      const classOmitStyleClass = classes.filter(c=>c != styleClass);
+      ele.setAttribute('class', classOmitStyleClass.join(' '));
     }
   }
   _removeBold(ele){
@@ -99,9 +99,9 @@ export default class PeerState{
     const classAttribute = ele.getAttribute("class");
     if(classAttribute){
       const classes = classAttribute.split(' ');
-      const classOmitBold = classes.filter(c=>c != styleClass);
-      classOmitBold.push(styleClass);
-      ele.setAttribute('class', classOmitBold.join(' '));
+      const classOmitStyleClass = classes.filter(c=>c != styleClass);
+      classOmitStyleClass.push(styleClass);
+      ele.setAttribute('class', classOmitStyleClass.join(' '));
     }
     else{
       ele.setAttribute('class', styleClass);
@@ -134,7 +134,7 @@ export default class PeerState{
       error: 'text-danger',
       warning: 'text-warning'
     }
-
+    Object.values(styleMap).forEach(s=>this._removeStyleClass(this._col3, s));
     this._addStyleClass(this._col3, styleMap[type]);
   }
 
