@@ -132,7 +132,7 @@ const main = ()=>{
     })
   }
 
-  document.getElementById('sendToTaskRoomDebug').onclick = async ()=>{
+  //document.getElementById('sendToTaskRoomDebug').onclick = async ()=>{
   //   const jsonObj = editor.get();
   //   const url = 'http://' + window.layerOneIpAddress + '/poc/debug';
   //   console.log('url:', url);
@@ -165,7 +165,7 @@ const main = ()=>{
   //     txType:"debug_showPeerMgr"
       
   //   })
-  };
+  //};
 
   document.getElementById('js_upload').onchange = async (e)=>{
     const userName = document.getElementById('userName').value.trim();
@@ -200,6 +200,15 @@ const main = ()=>{
     fr.readAsDataURL(file);
   };
 
+  document.getElementById('clearLayerOneLog').onclick = ()=>{
+    const containerEle = document.getElementById('layerOneLogContainer')
+
+    let child = containerEle.lastElementChild;  
+    while (child) { 
+      containerEle.removeChild(child); 
+      child = containerEle.lastElementChild; 
+    }
+  };
 
   $('#showDataModal').click(()=>{
     const d = cache.get('task_data');

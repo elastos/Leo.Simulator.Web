@@ -86,10 +86,23 @@ class SimState extends EventEmitter{
     return this._currentBlock;
   }
   nodeStatusUpdate({from, type, content}){
-    const peerState = this._findPeerStateByPeerId(from);
-    if(peerState){
-      peerState.statusUpdate(type, content);
+    if(from == this._layerOnePeerId){
+      const liEle = document.createElement('li');
+      liEle.setAttribute('class', 'list-group-item');
+      liEle.innerHTML = content;
+      const ulEle = document.getElementById('layerOneLogContainer');
+      if(ulEle){
+        ulEle.prepend(liEle);
+      }
+
     }
+    else{
+      const peerState = this._findPeerStateByPeerId(from);
+      if(peerState){
+        peerState.statusUpdate(type, content);
+      }
+    }
+    
   }
   nodeDataUpdate({from, type, content}){
     
