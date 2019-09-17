@@ -16,4 +16,7 @@ export default (simState)=>async (message)=>{
   }
   const block = (await window.ipfs.dag.get(cid)).value;
   simState.receiveNewBlock(block, cid);
+  const totalGas = Object.values(block.gasMap).reduce((sum, g)=>sum + g, 0);
+  document.getElementById('totalGas').innerHTML = totalGas;
+  document.getElementById('totalCreditForOnlineNodes').innerHTML = block.totalCreditForOnlineNodes
 }
