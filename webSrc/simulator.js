@@ -87,28 +87,30 @@ const main = ()=>{
     if(! userName){
       return o('error', 'Please select user before sending action on behalf of this user');
     }
-    const layerOnePeerId =  window.simState.getLayerOnePeerId();
-    if(! layerOnePeerId){
-      return o('error', 'We have to wait to get connected to the layerOne before sending transaction');
-    }
     const jsonObj = editor.get();
-    const warpper = {
+    const wrapper = {
       type:'webUiAction',
       initiatorUserName: userName,
       action:jsonObj
     }
     const responseCallBack = (res, err)=>{
       if(err){
-        return o('error', 'Send tx to layerone get error response', err);
+        return o('error', 'Send tx to initiator get error response', err);
       }
-      o('success', 'Transaction sent to layer one');
+      o('success', 'Transaction sent to initiator');
     };
+    const sendToPeerId = global.simState.getUserPeerId(userName);
+    if(! sendToPeerId)  {
+      o('error', 'User is not online, cannot send action');
+      return;
+    }
     global.rpcEvent.emit('rpcRequest', {
-      sendToPeerId: layerOnePeerId, 
-      message : JSON.stringify(warpper), 
+      sendToPeerId, 
+      message: JSON.stringify(wrapper),
       responseCallBack
-    })
-  }
+    });
+  };
+
 
   document.getElementById('generateNewBlock').onclick = ()=>{
     const layerOnePeerId =  window.simState.getLayerOnePeerId();

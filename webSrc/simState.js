@@ -107,4 +107,10 @@ class SimState extends EventEmitter{
   nodeDataUpdate({from, type, content}){
     
   }
+
+  getUserPeerId(userName){
+    if(! this._users) return null;
+    if(! this._users[userName]) return null;
+    return this._users[userName].getPeerId()
+  }
 }
