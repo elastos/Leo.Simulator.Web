@@ -77,7 +77,7 @@ const main = ()=>{
 
       },
       multiParties:'none',
-      depositAmt:3
+      depositAmt:10
     });
 
   };
