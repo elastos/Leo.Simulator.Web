@@ -10,6 +10,7 @@ export default class PeerState{
     this._parentDomEle = parentDomEle;
     
     this._userName = userInfo.userName;
+    this._data = userInfo;
 
     this._tr = document.createElement('tr');
     this._th = document.createElement('th');

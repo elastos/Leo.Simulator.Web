@@ -46,8 +46,8 @@ const main = ()=>{
    
     editor.set({
       txType:"uploadLambda",
-      lambdaName:"hello_world",
-      dockerImg:"placeholder",
+      code:"hello_world",
+      dockerImg:"test",
       payment:"payPerUse",
       ownerName:userName,
       amt:2
