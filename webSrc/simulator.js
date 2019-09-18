@@ -41,18 +41,18 @@ const main = ()=>{
       tpmPublicKey:'placeholder'
     })
   };
-  document.getElementById('btn4').onclick = ()=>{
-    const userName = document.getElementById('userName').value.trim();
+  // document.getElementById('btn4').onclick = ()=>{
+  //   const userName = document.getElementById('userName').value.trim();
    
-    editor.set({
-      txType:"uploadLambda",
-      code:"hello_world",
-      dockerImg:"test",
-      payment:"payPerUse",
-      ownerName:userName,
-      amt:2
-    });
-  };
+  //   editor.set({
+  //     txType:"uploadLambda",
+  //     code:"hello_world",
+  //     dockerImg:"test",
+  //     payment:"payPerUse",
+  //     ownerName:userName,
+  //     amt:2
+  //   });
+  // };
   document.getElementById('btn5').onclick = ()=>{
     const userName = document.getElementById('userName').value.trim();
    
@@ -60,7 +60,7 @@ const main = ()=>{
       txType:"computeTask",
       userName,
       lambdaCid:"PLEASE_REPLACE_THIS_VALUE_TO_THE_lambdaCid_YOU_GOT_FROM_PREVIOUS_uploadLambda_TASK",
-      postSecData:'placeholder',
+      postSecData:'IMG_20190701_1654519.jpg',
       env:{
         network:'totalIsolated',
         ipAllowed:'none',
@@ -82,6 +82,32 @@ const main = ()=>{
 
   };
   
+  document.getElementById('btn6').onclick = ()=>{
+    const userName = document.getElementById('userName').value.trim();
+   
+    editor.set({
+      txType:"uploadLambda",
+      // code:"hello_world",
+      // dockerImg:"test",
+      docker_yaml:`
+      version: '3'
+      services:
+        computer-leo:
+          container_name: leo
+          image: kevingzhang/leo_python:demo201909
+          volumes:
+            - ./run.py:/LEO/run.py
+            - ./test.jpg:/LEO/test.jpg
+          command: python run.py
+        `
+      ,
+      localSourceCode:'run.py',
+      payment:"payPerUse",
+      ownerName:userName,
+      amt:4
+    });
+  };
+
   document.getElementById('sendAction').onclick = ()=>{
     const userName = document.getElementById('userName').value.trim();
     if(! userName){
@@ -169,38 +195,52 @@ const main = ()=>{
   //   })
   //};
 
-  document.getElementById('js_upload').onchange = async (e)=>{
-    const userName = document.getElementById('userName').value.trim();
+  // document.getElementById('js_upload').onchange = async (e)=>{
+  //   const userName = document.getElementById('userName').value.trim();
   
-    const file = e.target.files[0];
-    const fr = new FileReader();
-    fr.onload = async ()=>{
-      // const cid = await ipfs.dag.put({
-      //   type : 'image',
-      //   code : fr.result
-      // });
-      const code = fr.result.replace('data:image/jpeg;base64,', '');
+  //   const file = e.target.files[0];
+  //   const fr = new FileReader();
+  //   fr.onload = async ()=>{
+  //     // const cid = await ipfs.dag.put({
+  //     //   type : 'image',
+  //     //   code : fr.result
+  //     // });
+  //     const imagefile = fr.result.replace('data:image/jpeg;base64,', '');
 
-      editor.set({
-        txType:"uploadLambda",
-        code: code,
-        dockerImg:"image",
-        payment:"payPerUse",
-        ownerName:userName,
-        amt:2
-      });
+  //     editor.set({
+  //       txType:"computeTask",
+  //       userName,
+  //       lambdaCid:"PLEASE_REPLACE_THIS_VALUE_TO_THE_lambdaCid_YOU_GOT_FROM_PREVIOUS_uploadLambda_TASK",
+  //       postSecData:imagefile,
+  //       env:{
+  //         network:'totalIsolated',
+  //         ipAllowed:'none',
+  //         p2pTrafficInAllowed:'owner',
+  //         resultSendBackTo:'owner',
+  //         errorSendBackTo:'owner',
+  //         osRequirement:"none",
+  //         timeOut:'100',
+  //         cleanUpAfter:'totalWipeout'
+  //       },
+  //       executorRequirement:{
+  //         credit:3,
+  //         deposit:10
 
-      cache.set('task_data', {
-        ownerName:userName,
-        data: fr.result,
-        type: 'image',
-        txType : 'uploadLambda'
-      });
+  //       },
+  //       multiParties:'none',
+  //       depositAmt:3
+  //     });
+  //     // cache.set('task_data', {
+  //     //   ownerName:userName,
+  //     //   data: fr.result,
+  //     //   type: 'image',
+  //     //   txType : 'uploadLambda'
+  //     // });
 
-      document.getElementById('js_upload').value = '';
-    };
-    fr.readAsDataURL(file);
-  };
+  //     document.getElementById('js_upload').value = '';
+  //   };
+  //   fr.readAsDataURL(file);
+  // };
 
   document.getElementById('clearLayerOneLog').onclick = ()=>{
     const containerEle = document.getElementById('layerOneLogContainer')
